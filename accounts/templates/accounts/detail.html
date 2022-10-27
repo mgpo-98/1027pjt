@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<h1>회원 정보페이지 </h1>
+
+{{ user.pk }} | {{ user.username }}
+
+{% endblock content %}

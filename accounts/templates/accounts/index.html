@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
-
+{% load django_bootstrap5 %}
 {% block content %}
-<h1>index.html</h1>
-
+<h1>회원 목록</h1> 
+{% if request.user.is_authenticated %}
+<a href="{% url 'accounts:logout' %}">로그아웃</a>
+{% else %}
+<a href="{% url 'accounts:login' %}">로그인</a>
+{% endif %}
+{% for user in users %}
+{{ user.pk }} | <a href="{% url 'accounts:detail' user.pk %}">{{ user.username }}</a>
+{% endfor %}
 {% endblock content %}

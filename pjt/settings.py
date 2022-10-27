@@ -31,9 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'reviews',
+    'accounts',
     'django_extensions',
     'django_bootstrap5',
-    'accounts',
+    'imagekit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,5 +129,8 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# User Model
 AUTH_USER_MODEL = 'accounts.User'
+
+MEDIA_ROOT = BASE_DIR / 'images'
+MEDIA_URL = '/media/'
