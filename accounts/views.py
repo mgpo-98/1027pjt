@@ -1,9 +1,11 @@
-from django.shortcuts import redirect, render
+from django.contrib import messages
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from .models import User
 
 # Create your views here.
@@ -51,3 +53,16 @@ def detail(request, pk):
         'user':user,
     }
     return render(request, 'accounts/detail.html', context)
+
+
+@login_required
+def follow(request, pk):
+    user = get_object_or_404(get_user_model(),pk=pk)
+    if request.user == user:
+        messages.warning(request, '스스로를 팔로우 할 수 없습니다.')
+        return redirect('accounts:detail', pk)
+    if request.user in user.followers.all():
+        user.followers.remove(request.user)
+    else:
+        user.followers.add(request.user)
+    return redirect('accounts:detail', pk)

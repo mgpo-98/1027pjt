@@ -134,3 +134,5 @@ AUTH_USER_MODEL = 'accounts.User'
 
 MEDIA_ROOT = BASE_DIR / 'images'
 MEDIA_URL = '/media/'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
