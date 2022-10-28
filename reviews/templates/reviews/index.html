@@ -2,9 +2,32 @@
 {% load django_bootstrap5 %}
 {% block content %}
 <h1>리뷰목록</h1>
-<a href="{% url 'reviews:create' %}">리뷰 쓰기</a>
 
+<!-- 
 {% for review in reviews %}
-{{ review.pk }} | <a href="{% url 'reviews:detail' review.pk %}">{{ review.title }}</a>
-{% endfor %}
+{{ review.pk }} <a href="{% url 'reviews:detail' review.pk %}">{{ review.title }}</a>
+{% endfor %} -->
+
+<table class="table m-5">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">리뷰 제목</th>
+            <th scope="col">내용</th>
+            <th scope="col">작성자</th>
+            <th scope="col">작성 시간</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for review in reviews %}
+            <th scope="row">{{review.id}}</th>
+            <td><a href="{% url 'reviews:detail' review.pk %}">{{ review.title }}</a></td>
+            <td>{{review.content}}</td>
+            <td><a href="{% url 'accounts:detail' user.pk %}">{{ user.username }}</a></td>
+            <td>{{review.created_at}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock content %}

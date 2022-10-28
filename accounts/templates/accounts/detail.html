@@ -1,28 +1,42 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% block content %}
-  <h1>회원 정보페이지
-  </h1>
+<h1>회원 정보페이지</h1>
 
-  {{ user.pk }}
-  |
-  {{ user.username }}
 
-  <p>팔로우:
-    {{ user.followings.count }}
-    | 팔로워:
-    {{ user.followers.count }}
-  </p>
 
-  {% if request.user != user %}
-    <a href="{% url 'accounts:follow' user.pk %}">
-      {% if request.user in user.followers.all %}
-        <button class="btn btn-outline-danger mb-3">팔로우 취소</button>
-      {% else %}
-        <button class="btn btn-outline-success mb-3">
-          팔로우</button>
-      {% endif %}
-    </a>
+<p>이름 : {{ user.username }} </p>
+<p>최근 접속시간 : {{ user.last_login }}</p>
+<p>이메일 : {{ user.email }}</p>
+<p>팔로우:
+  {{ user.followings.count }}
+  팔로워:
+  {{ user.followers.count }}
+</p>
+
+
+{% for review in reviews %}
+<p>제목 : <a href="{% url 'reviews:detail' review.pk %}">
+    {{review.title}}</p>
+</a>
+</p>작성시간 : {{review.created_at}}</p>
+<br>
+{% endfor %}
+
+{% for comment in comments %}
+<p>댓글 : <a href="{% url 'reviews:detail' comment.review_id %}"> {{comment.content}}</a></p>
+<p> 작성시간 : {{comment.created_at}}</p>
+{% endfor %}
+
+{% if request.user != user %}
+<a href="{% url 'accounts:follow' user.pk %}">
+  {% if request.user in user.followers.all %}
+  <button class="btn btn-outline-danger mb-3">팔로우 취소</button>
+  {% else %}
+  <button class="btn btn-outline-success mb-3">
+    팔로우</button>
   {% endif %}
+</a>
+{% endif %}
 
 {% endblock content %}

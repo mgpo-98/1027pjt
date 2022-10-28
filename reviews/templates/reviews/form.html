@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% block content %}
-<h1>form</h1>
+<h1>리뷰 작성 페이지</h1>
 {% if request.resolver_match.url_name == 'create' %}
-<h1> 글쓰기 </h1>
+<br>
+<h2> 글쓰기 </h2>
 {% else %}
 <h1> 수정하기 </h1>
 {% endif %}

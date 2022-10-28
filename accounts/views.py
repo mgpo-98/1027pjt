@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
+
+from reviews.models import Review , Comment
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
@@ -49,8 +51,12 @@ def logout(request):
 
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
+    reviews = Review.objects.filter(user_id=pk)
+    comments = Comment.objects.filter(user_id=pk)
     context = {
         'user':user,
+        'reviews':reviews,
+        'comments':comments,
     }
     return render(request, 'accounts/detail.html', context)
 
