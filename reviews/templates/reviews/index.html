@@ -2,13 +2,26 @@
 {% load django_bootstrap5 %}
 {% block content %}
 <h1>리뷰목록</h1>
-
-<!-- 
+<div class="d-flex flex-wrap">
+{% if reviews %}
 {% for review in reviews %}
-{{ review.pk }} <a href="{% url 'reviews:detail' review.pk %}">{{ review.title }}</a>
-{% endfor %} -->
-
-<table class="table m-5">
+<div class="card shadow m-3 relative" style="width: 20%;">
+    {% if review.image %}
+    <img src="{{ review.image.url }}" class="card-img-top" alt="...">
+    <img src="https://an2-img.amz.wtchn.net/image/v1/updatable_images/2571/original/42e70f1bc34d7af54478a311983ecf6d3601eefa.png" alt="" style="width:16%;border-radius: 50%;position:absolute;background-color: white;padding: 0.3rem;right: 0;">
+    {% endif %}    
+        <div class="card-body">
+            <p class="card-text"><a href="{% url 'reviews:detail' review.pk %}">{{ review.title }}</a>
+                <br>
+                {{ review.user.username }}
+                <br>
+                {{ review.created_at }}
+            </p>
+        </div>
+</div>
+{% endfor %}
+</div>
+<!-- <table class="table m-5">
     <thead>
         <tr>
             <th scope="col">id</th>
@@ -29,5 +42,8 @@
         </tr>
         {% endfor %}
     </tbody>
-</table>
+</table> -->
+{% else %}
+<p>리뷰가 없습니다 ㅠㅠ</p>
+{% endif %}
 {% endblock content %}
