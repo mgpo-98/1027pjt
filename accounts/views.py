@@ -56,7 +56,7 @@ def detail(request, pk):
     context = {
         'user':user,
         'reviews':reviews,
-        'comments':comments,
+        'comments':comments
     }
     return render(request, 'accounts/detail.html', context)
 
